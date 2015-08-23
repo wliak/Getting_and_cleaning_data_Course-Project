@@ -1,14 +1,14 @@
 library(reshape2)
 
-filename <- "getdata_dataset.zip"
+file1 <- "dataset.zip"
 
 ## Download and unzip the dataset:
-if (!file.exists(filename)){
+if (!file.exists(file1)){
   fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip "
-  download.file(fileURL, filename, method="curl")
+  download.file(fileURL, file1, method="curl")
 }  
 if (!file.exists("UCI HAR Dataset")) { 
-  unzip(filename) 
+  unzip(file1) 
 }
 
 # Load activity labels + features
@@ -47,4 +47,4 @@ allData$subject <- as.factor(allData$subject)
 allData.melted <- melt(allData, id = c("subject", "activity"))
 allData.mean <- dcast(allData.melted, subject + activity ~ variable, mean)
 
-write.table(allData.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
+write.table(allData.mean, "tidydata.txt", row.names = FALSE, quote = FALSE)
